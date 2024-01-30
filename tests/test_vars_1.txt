@@ -1,0 +1,9 @@
+F {
+    e.X 'A' e.Y = e.X e.Y;
+}
+
+---
+
+G {
+    e.Y 'A' e.X = e.Y e.X;
+}

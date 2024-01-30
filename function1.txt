@@ -1,5 +1,0 @@
-F {
-    'AA' e.X = (e.X (e.X)) e.Y;
-    'AA' e.X = e.X e.X;
-     = e.X;
-}
