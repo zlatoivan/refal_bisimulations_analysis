@@ -1,0 +1,18 @@
+Function -> FuncName '{' Sentences '}'
+FuncName -> IDENTIFIER
+Sentences -> Sentence | Sentence ';' | Sentence ';' Sentences
+Sentence -> Pattern '=' Expr
+
+Pattern -> PatternTerm Pattern | e
+PatternTerm -> STRING | Variable | '(' Pattern ')'
+
+Expr -> ExprTerm Expr | e
+ExprTerm -> STRING | Variable | '(' Expr ')' | '<' FuncName Expr '>'
+
+Variable -> TYPE '.' Index
+Index -> IDENTIFIER | INTEGER
+
+IDENTIFIER -> '[A-Z][A-Za-z0-9-_]{0,14}'
+INTEGER -> '[1-9][0-9]*'
+STRING -> '\'[A-Za-z0-9]+\''
+TYPE -> '[s,t,e]{1}'
