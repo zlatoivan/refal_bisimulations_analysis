@@ -232,10 +232,12 @@ def solve():
     assert p.is_lalr_one()
     p.add_skipped_domain('\\s')
 
-    test_file = 'tests/test_brackets.txt'
+    test_file = 'tests/test_brackets_1.txt'
+    # test_file = 'tests/test_brackets_2.txt'
     # test_file = 'tests/test_vars_1.txt'
     # test_file = 'tests/test_vars_2.txt'
     # test_file = 'tests/test_eq_cl_1.txt'
+    # test_file = 'tests/test_eq_cl_2.txt'
     f1, f2 = open(test_file, 'r').read().split('\n---\n')
     
     try:

@@ -5,5 +5,5 @@ F {
 ---
 
 G {
-    e.X 'A' e.X = e.Y e.X;
+    e.X 'A' e.Y = e.Y e.X;
 }
