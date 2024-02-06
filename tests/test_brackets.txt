@@ -1,10 +1,8 @@
 F {
-    'AA' e.X = e.X e.X;
+    'AA' e.X = (e.X (e.X));
     'A' e.Y = <G e.Y>;
     e.Y = e.X;
 }
-
----
 
 G {
     'AA' e.Y = e.Y e.Y;
