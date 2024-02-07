@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from abc import ABC
-import parse as pe
+import parser_edsl as pe
 
 
 class Term(ABC):
@@ -85,3 +85,17 @@ def getParser():
     assert p.is_lalr_one()
     p.add_skipped_domain('\\s')
     return p
+
+
+def getSyntaxTrees(funcs):
+    p = getParser()
+
+    trees = []
+    for f in list(funcs):
+        try:
+            tree = p.parse(f)
+            trees.append(tree)
+        except pe.Error as e:
+            print(f'Ошибка {e.pos}: {e.message}')
+
+    return trees

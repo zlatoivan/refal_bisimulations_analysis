@@ -1,9 +1,31 @@
 F0 {
-    e.X = <H0 e.X>;
+    'B' e.X = <H0 e.X>;
     'A' = 'ABC';
+    () = ;
 }
 
 F {
+    () = ;
     'A' = 'ABC';
-    e.X = <H e.X>;
+    'B' e.X = <H e.X>;
+}
+
+H0 {
+    'A' = 'ABC';
+    'B' e.X = <H e.X><G0 e.X>;
+}
+
+H {
+    'A' = 'ABC';
+    'B' e.X = <H e.X><G e.X>;
+}
+
+G0 {
+    'A' = ;
+    'B' e.X = <G e.X>;
+}
+
+G {
+    'A' = ;
+    'B' e.X = <G e.X>;
 }
