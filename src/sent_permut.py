@@ -2,9 +2,8 @@ import copy
 from syntax_trees import Function, Sentence, String, FuncCall, TermInBrackets, Var, String, TermList, getParser
 
 
-def rename_vars_and_funcs(func: Function):
+def rename_vars_and_funcs_to_its_first(func: Function):
     def visit_function(func: Function):
-        name = func.name
         for sent in func.sentences:
             visit_sentence(sent)
 
@@ -16,8 +15,6 @@ def rename_vars_and_funcs(func: Function):
 
     def visit_pattern(tList: TermList, varsDict, funcDict):
         for term in tList:
-            if type(term) is String:
-                visit_string(term)
             if type(term) is Var:
                 visit_var(term, varsDict)
             if type(term) is TermInBrackets:
@@ -25,36 +22,33 @@ def rename_vars_and_funcs(func: Function):
 
     def visit_expr(tList: TermList, varsDict, funcDict):
         for term in tList:
-            if type(term) is String:
-                visit_string(term)
             if type(term) is Var:
+                vType = term.type
+                vInd = term.index
+                key = str(vType) + str(vInd).lower()
+                if key not in varsDict:
+                    print('Нет такой переменной в левой части правила:', str(vType) + str(vInd), '\n')
+                    exit()
                 visit_var(term, varsDict)
             if type(term) is TermInBrackets:
-                # print('in')
                 visit_expr(term.expr, varsDict, funcDict)
             if type(term) is FuncCall:
                 visit_funccall(term, varsDict, funcDict)
 
-    def visit_string(s: String):
-        str = s.expr
-
     def visit_var(v: Var, varsDict):
         vType = v.type
         vInd = v.index
-        key = str(vType) + '.' + str(vInd)
+        key = str(vType) + str(vInd).lower()
         if key not in varsDict:
             varsDict[key] = len(varsDict) + 1
         v.index = varsDict[key]
-        # print(vType, vInd)
 
     def visit_funccall(f: FuncCall, varsDict, funcDict):
         name = f.name
         if name not in funcDict:
             funcDict[name] = 'func_' + str(len(funcDict) + 1)
         f.name = funcDict[name]
-        # f.name = 'cl_1'
         visit_expr(f.expr, varsDict, funcDict)
-        # print(name, expr)
 
     visit_function(func)
 
@@ -238,8 +232,8 @@ def sentencesPermutation(trees):
     # Переименовать переменные и функции на порядковый номер первого вхождения в правило
     treesRenamed = []
     for t in trees:
-        treeCl = rename_vars_and_funcs(copy.deepcopy(t))
-        treesRenamed.append(treeCl)
+        treeRenamed = rename_vars_and_funcs_to_its_first(copy.deepcopy(t))
+        treesRenamed.append(treeRenamed)
 
     for i in range(len(treesRenamed)):
         for j in range(i, len(treesRenamed)):
@@ -264,12 +258,12 @@ def sentencesPermutation(trees):
                     print(i, j, '\n')
             
             if not okPerm:
-                print('не перестановочны\n\n')
+                print('не перестановочны.\n\n')
                 continue
             
             for ifc in indexesForCheck:
                 print(ifc[0], ifc[1])
-            print('перестановочны\n')
+            print('перестановочны.\n')
 
             # Переставить правила
             sp = trees[i].sentences

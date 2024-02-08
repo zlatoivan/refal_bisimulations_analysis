@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from abc import ABC
 import parser_edsl as pe
+from pprint import pprint
 
 
 class Term(ABC):
@@ -28,7 +29,6 @@ class FuncCall(Term):
     name: str
     expr: Term
 
-
 @dataclass
 class Sentence:
     pattern: TermList
@@ -47,15 +47,16 @@ NFunction, NFuncName, NSentences, NSentence, NPattern, NExpr, NPatternTerm, NExp
 
 
 # Терминальные символы
-IDENTIFIER = pe.Terminal('IDENTIFIER', '[A-Z][A-Za-z0-9-_]{0,14}', str)
-INTEGER = pe.Terminal('INTEGER', '[1-9][0-9]*', str)
+FUNC_IDENTIFIER = pe.Terminal('FUNC_IDENTIFIER', '[A-Z][A-Za-z0-9-_]{0,14}', str)
 STRING = pe.Terminal('STRING', '\'[A-Za-z0-9]+\'', str)
-TYPE = pe.Terminal('TYPE', '[s,t,e]{1}', str)
+TYPE = pe.Terminal('TYPE', '[ste]{1}', str)
+VAR_IDENTIFIER = pe.Terminal('VAR_IDENTIFIER', '[.][A-Za-z0-9][A-Za-z0-9-_]{0,13}', str)
+# INTEGER = pe.Terminal('INTEGER', '[1-9][0-9]*', str)
 
 
 # Правила грамматики
 NFunction |= NFuncName, '{', NSentences, '}', Function
-NFuncName |= IDENTIFIER
+NFuncName |= FUNC_IDENTIFIER
 NSentences |= NSentence, ';', lambda x: [x]
 NSentences |= NSentences, NSentence, ';', lambda xs, x: xs + [x]
 NSentence |= NPattern, '=', NExpr, lambda p, e: Sentence(p, e)
@@ -74,10 +75,9 @@ NExprTerm |= NVariable, lambda c: Var(c.type, c.index)
 NExprTerm |= '(', NExpr, ')', lambda c: TermInBrackets(c)
 NExprTerm |= '<', NFuncName, NExpr, '>', lambda c, q: FuncCall(c, q)
 
-NVariable |= NType, '.', NIndex, lambda t, i: Var(t, i)
+NVariable |= NType, NIndex, lambda t, i: Var(t, i)
 NType |= TYPE
-NIndex |= IDENTIFIER
-NIndex |= INTEGER
+NIndex |= VAR_IDENTIFIER
 
 
 def getParser():
@@ -90,12 +90,28 @@ def getParser():
 def getSyntaxTrees(funcs):
     p = getParser()
 
+    # # Вывести токены:
+    # try:
+    #     for token in p.tokenize(funcs[0]):
+    #         print(token.pos, token)
+    # except pe.Error as e:
+    #     print(f'Ошибка {e.pos}: {e.message}')
+    # print('\n---------------------------------------------\n')
+
+
     trees = []
     for f in list(funcs):
         try:
             tree = p.parse(f)
             trees.append(tree)
         except pe.Error as e:
-            print(f'Ошибка {e.pos}: {e.message}')
+            print(f'Ошибка {e.pos}: {e.message}\n')
+            return False
+
+    for i in range(len(funcs)):
+        print(funcs[i], '\n')
+        # pprint(trees[i])
+        # print('\n\n\n')
+    print()
 
     return trees

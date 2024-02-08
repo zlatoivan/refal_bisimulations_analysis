@@ -1,6 +1,6 @@
 F {
-    e.X 'A' e.Y = e.X e.Y <F e.R><G e.R>;
-    e.Z = e.Z <T e.R><F e.Z>;
+    e.x 'A' e.y = e.X e.Y <F e.y><G e.X>;
+    e.z = e.z <G e.z><F e.Z>;
 }
 
 G {
