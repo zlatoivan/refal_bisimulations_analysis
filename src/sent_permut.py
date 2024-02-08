@@ -23,12 +23,12 @@ def rename_vars_and_funcs_to_its_first(func: Function):
     def visit_expr(tList: TermList, varsDict, funcDict):
         for term in tList:
             if type(term) is Var:
-                vType = term.type
-                vInd = term.index
-                key = str(vType) + str(vInd).lower()
-                if key not in varsDict:
-                    print('Нет такой переменной в левой части правила:', str(vType) + str(vInd), '\n')
-                    exit()
+                # vType = term.type
+                # vInd = term.index
+                # key = str(vType) + str(vInd).lower()
+                # if key not in varsDict:
+                #     print('Нет такой переменной в левой части правила:', str(vType) + str(vInd), '\n')
+                #     exit()
                 visit_var(term, varsDict)
             if type(term) is TermInBrackets:
                 visit_expr(term.expr, varsDict, funcDict)

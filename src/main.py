@@ -3,11 +3,11 @@ from sent_permut import sentencesPermutation
 from syntax_trees import getSyntaxTrees
 
 
-def bisimilar():
+def bisimulation():
     print()
 
     # Входные данные
-    funcs = open('tests/test_' + 'const_func_1' + '.txt', 'r').read().split('\n\n')
+    funcs = open('tests/test_' + 'eq_cl_1' + '.txt', 'r').read().split('\n\n')
 
     # Построение синтаксических деревьев
     trees = getSyntaxTrees(funcs)
@@ -29,4 +29,4 @@ def bisimilar():
 
 
 if __name__ == '__main__':
-    bisimilar()
+    bisimulation()

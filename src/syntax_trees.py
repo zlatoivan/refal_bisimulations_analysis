@@ -50,7 +50,7 @@ NFunction, NFuncName, NSentences, NSentence, NPattern, NExpr, NPatternTerm, NExp
 FUNC_IDENTIFIER = pe.Terminal('FUNC_IDENTIFIER', '[A-Z][A-Za-z0-9-_]{0,14}', str)
 STRING = pe.Terminal('STRING', '\'[A-Za-z0-9]+\'', str)
 TYPE = pe.Terminal('TYPE', '[ste]{1}', str)
-VAR_IDENTIFIER = pe.Terminal('VAR_IDENTIFIER', '[.][A-Za-z0-9][A-Za-z0-9-_]{0,13}', str)
+VAR_IDENTIFIER = pe.Terminal('VAR_IDENTIFIER', '[.][A-Za-z0-9][A-Za-z0-9-_]{0,14}', str)
 # INTEGER = pe.Terminal('INTEGER', '[1-9][0-9]*', str)
 
 

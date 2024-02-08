@@ -70,8 +70,6 @@ def exprTreeToStr(expr):
     ans = ans.replace(' >', '>').replace(' )', ')')
     ans = ans[:-1]
 
-    print(ans, len(ans))
-
     return ans
 
 
@@ -100,7 +98,7 @@ def getReturnedVals(func: Function):
                     return False
             
             if type(term) is TermInBrackets:
-                visit_expr(term.expr)
+                visit_expr(term.expr, True)
 
             if type(term) is FuncCall:
                 if not funcCallVisited:

@@ -9,10 +9,11 @@ PatternTerm -> STRING | Variable | '(' Pattern ')'
 Expr -> ExprTerm Expr | e
 ExprTerm -> STRING | Variable | '(' Expr ')' | '<' FuncName Expr '>'
 
-Variable -> TYPE '.' Index
+Variable -> Type Index
+Type -> TYPE
 Index -> VAR_IDENTIFIER
 
 FUNC_IDENTIFIER -> '[A-Z][A-Za-z0-9-_]{0,14}'
-VAR_IDENTIFIER -> '[A-Za-z0-9-_]{0,14}'
+VAR_IDENTIFIER -> '[.][A-Za-z0-9][A-Za-z0-9-_]{0,14}'
 STRING -> '\'[A-Za-z0-9]+\''
 TYPE -> '[s,t,e]{1}'
