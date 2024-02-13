@@ -79,7 +79,9 @@ def getReturnedVals(func: Function):
     def visit_expr(tList: TermList, funcCallVisited):
         if not funcCallVisited:
             if len(tList) == 0:
-                returnedVals.append('eps')
+                if len(returnedVals) == 0:
+                    returnedVals.append(String('eps'))
+                return False
 
         if len(tList) == 1:
             term = tList[0]
@@ -90,7 +92,10 @@ def getReturnedVals(func: Function):
                     for ret in returnedVals:
                         if type(ret) is String and ret != term:
                             return False
-                    returnedVals.append(exprTreeToStr([term]))
+                        if type(ret) is String and ret == term:
+                            continue
+                    if term not in returnedVals:
+                        returnedVals.append(term)
 
             # Проверка того, что переменные не могут возвращаться в конст. функции
             if type(term) is Var:
@@ -102,7 +107,7 @@ def getReturnedVals(func: Function):
 
             if type(term) is FuncCall:
                 if not funcCallVisited:
-                    returnedVals.append(exprTreeToStr([term]))
+                    returnedVals.append(term)
                 okConst = visit_expr(term.expr, True)
                 if not okConst:
                     return False
@@ -117,6 +122,9 @@ def getReturnedVals(func: Function):
         okConst = visit_expr(sent.expr, False)
         if not okConst:
             return None
+        
+    for i in range(len(returnedVals)):
+        returnedVals[i] = exprTreeToStr([returnedVals[i]])
 
     return returnedVals
 
@@ -177,7 +185,7 @@ def showEqClassesAndConstFuncs(eqClasses, constFuncClasses):
             eqClassesAns[cl] = []
         eqClassesAns[cl].append(func)
 
-    for cl, funcs in eqClassesAns.items():
+    for cl, funcs in enumerate(eqClassesAns.values()):
         print('    Класс ' + str(cl) + ':', funcs)
     print('\n')
 

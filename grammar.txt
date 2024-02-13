@@ -1,19 +1,26 @@
+Program -> Function | Function Program
+
+Function -> '\$ENTRY' FuncName { Sentences }
+
 Function -> FuncName '{' Sentences '}'
 FuncName -> FUNC_IDENTIFIER
 Sentences -> Sentence | Sentence ';' | Sentence ';' Sentences
-Sentence -> Pattern '=' Expr
+Sentence -> Pattern Conditions '=' Expr
+
+Conditions |= Conditions, ',', Expr, ':', Pattern | e
 
 Pattern -> PatternTerm Pattern | e
-PatternTerm -> STRING | Variable | '(' Pattern ')'
+PatternTerm -> STRING | FUNC_IDENTIFIER | Variable | '(' Pattern ')'
 
 Expr -> ExprTerm Expr | e
-ExprTerm -> STRING | Variable | '(' Expr ')' | '<' FuncName Expr '>'
+ExprTerm -> STRING | FUNC_IDENTIFIER | Variable | '(' Expr ')' | '<' FuncName Expr '>'
 
 Variable -> Type Index
 Type -> TYPE
 Index -> VAR_IDENTIFIER
 
-FUNC_IDENTIFIER -> '[A-Z][A-Za-z0-9-_]{0,14}'
-VAR_IDENTIFIER -> '[.][A-Za-z0-9][A-Za-z0-9-_]{0,14}'
+
+FUNC_IDENTIFIER -> '[A-Z][A-Za-z0-9-_]{0,32}'
+VAR_IDENTIFIER -> '[.][A-Za-z0-9][A-Za-z0-9-_]{0,32}'
 STRING -> '\'[A-Za-z0-9]+\''
 TYPE -> '[ste]{1}'

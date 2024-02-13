@@ -7,10 +7,10 @@ def bisimulation():
     print()
 
     # Входные данные
-    funcs = open('tests/test_' + 'eq_cl_1' + '.txt', 'r').read().split('\n\n')
+    file = open('tests/main_test.ref', 'r').read()
 
     # Построение синтаксических деревьев
-    trees = getSyntaxTrees(funcs)
+    trees = getSyntaxTrees(file)
     if not trees: return
     
     # Переставить правила, чтоб биекция была прямой
