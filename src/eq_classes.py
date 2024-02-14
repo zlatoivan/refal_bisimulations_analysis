@@ -92,8 +92,6 @@ def getReturnedVals(func: Function):
                     for ret in returnedVals:
                         if type(ret) is String and ret != term:
                             return False
-                        if type(ret) is String and ret == term:
-                            continue
                     if term not in returnedVals:
                         returnedVals.append(term)
 
