@@ -1,11 +1,9 @@
-F0 {
-    'A' = True;
-    'B' e.x  = <H0 e.x>;
-    'C' = True;
+F1 {
+  "Hello" = 'a' 'b' 'c';
+  1 = 'abc';
 }
 
-H0 {
-    'A' = ;
-    'B' e.x  = <H0 e.x>;
-    'C' = ;
+F2 {
+  Hello = 'abc';
+  1 = 'abs'
 }
