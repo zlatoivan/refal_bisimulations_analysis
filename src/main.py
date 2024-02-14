@@ -1,16 +1,18 @@
 from eq_classes import getConstFuncClasses, getEqClasses, showEqClassesAndConstFuncs
 from sent_permut import sentencesPermutation
 from syntax_trees import getSyntaxTrees
-
+import sys
 
 def bisimulation():
     print()
 
     # Входные данные
-    file = open('tests/main_test.ref', 'r').read()
+    filename = sys.argv[1]
+    # filename = 'tests/main_test.ref'
+    data = open(filename, 'r').read()
 
     # Построение синтаксических деревьев
-    trees = getSyntaxTrees(file)
+    trees = getSyntaxTrees(data)
     if not trees: return
     
     # Переставить правила, чтоб биекция была прямой

@@ -202,6 +202,6 @@ def getSyntaxTrees(file):
         splitStringToChar(t)
     
     # print(file, '\n')
-    pprint(trees)
+    # pprint(trees)
 
     return trees
