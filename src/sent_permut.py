@@ -91,7 +91,7 @@ def isPatternsPermutation(p1, p2):
                 # Делаем prf1 < prf2
                 if len(p1[0].expr) > len(p2[0].expr):
                     p1, p2 = p2, p1
-                # Если за меньшим префиксом есть e.X, то суффиксы не перестановочны (равны)
+                # Если за меньшим префиксом есть e.X, то префиксы не перестановочны (равны)
                 if len(p1) > 1 and type(p1[1]) == Var and p1[1].type == 'e':
                     pref1 = pref2
         # String vs Var

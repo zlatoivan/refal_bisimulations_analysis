@@ -7,8 +7,8 @@ def bisimulation():
     print()
 
     # Входные данные
-    filename = sys.argv[1]
-    # filename = 'tests/main_test.ref'
+    # filename = sys.argv[1]
+    filename = 'tests/main_test.ref'
     data = open(filename, 'r').read()
 
     # Построение синтаксических деревьев
