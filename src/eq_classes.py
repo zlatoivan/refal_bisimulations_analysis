@@ -81,8 +81,10 @@ def getReturnedVals(func: Function):
             if len(tList) == 0:
                 if len(returnedVals) == 0:
                     returnedVals.append(String('eps'))
+                else:
+                    return False
 
-        elif len(tList) == 1:
+        if len(tList) == 1:
             term = tList[0]
 
             if type(term) is String:
@@ -110,7 +112,7 @@ def getReturnedVals(func: Function):
                     return False
 
         # Проверка того, что ничего не приписывается
-        elif len(tList) > 1:
+        if len(tList) > 1:
             return False
         
         return True
